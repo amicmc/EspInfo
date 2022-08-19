@@ -6,6 +6,7 @@
 
 uint64_t chipid;  
 
+// Initializes Bluetooth subsytem
 bool initBluetooth(){
   if (!btStart()) {
     Serial.println("Failed to initialize controller");
@@ -21,7 +22,8 @@ bool initBluetooth(){
   }
   return true;
 }
- 
+
+// Prints BT address
 void printBtAddress() {
   const uint8_t* point = esp_bt_dev_get_address();
   for (int i = 0; i < 6; i++) {
@@ -33,14 +35,14 @@ void printBtAddress() {
     }
   }
 }
+
 void setup() {
-	Serial.begin(115200);
+  Serial.begin(115200);
   // CHIPID
-  chipid=ESP.getEfuseMac();
-  Serial.printf("ESP32 Chip ID:  %04X%08X",(uint16_t)(chipid>>32), (uint32_t)chipid);//print High 2 bytes
+  chipid = ESP.getEfuseMac();
+  Serial.printf("ESP32 Chip ID:  %04X%08X",(uint16_t)(chipid>>32), (uint32_t)chipid);
   // WIFI MAC Address
-  Serial.println();
-  Serial.print("ESP Board WiFi MAC Address:  ");
+  Serial.print("\nESP Board WiFi MAC Address:  ");
   Serial.println(WiFi.macAddress());
   // BT MAC Address
   initBluetooth();
